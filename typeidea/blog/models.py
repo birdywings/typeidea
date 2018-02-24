@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 
 class Post(models.Model) :
     STATUS_ITEMS = (
-        (1,'上線'),
+        (1,'上线'),
         (2,'草稿'),
         (3,'刪除'),
     )
