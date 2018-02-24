@@ -4,83 +4,81 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from django.http import Http404
 from django.core.paginator import Paginator, EmptyPage
+from django.views.generic import ListView, DetailView
 
 from .models import Post, Tag, Category
 from config.models import SideBar
 from comment.models import Comment
 
-def get_common_context():
-    categories = Category.objects.filter(status=1)
-    nav_cates = []
-    cates = []
-    for cate in categories:
-        if cate.is_nav:
-            nav_cates.append(cate)
-        else:
-            cates.append(cate)
-
-    side_bars = SideBar.objects.filter(status=1)
-
-    recently_posts = Post.objects.filter(status=1)[:10]
-    recently_comments = Comment.objects.filter(status=1)[:10]
-
-    context = {
-        'nav_cates':nav_cates,
-        'cates':cates,
-        'side_bars':side_bars,
-        'recently_posts':recently_posts,
-        'recently_comments':recently_comments,
-    }
-    return context
-
-def post_list(request, category_id=None, tag_id=None):
-    page = request.GET.get('page', 1)
-    page_size = 4
-    try:
-        page = int(page)
-    except TypeError:
-        page = 1
 
 
-    queryset = Post.objects.all()
-    if category_id:
-        #分类页面
-        queryset = queryset.filter(category_id=category_id)
-    elif tag_id:
-        #标签页面
+class CommonMixin(object):
+    def get_category_context(self):
+        categories = Category.objects.filter(status=1)
+        nav_cates = []
+        cates = []
+        for cate in categories:
+            if cate.is_nav:
+                nav_cates.append(cate)
+            else:
+                cates.append(cate)
+
+        return {
+            'nav_cates': nav_cates,
+            'cates': cates,
+        }
+
+    def get_context_data(self, **kwargs):
+        side_bars = SideBar.objects.filter(status=1)
+
+        recently_posts = Post.objects.filter(status=1)[:10]
+        recently_comments = Comment.objects.filter(status=1)[:10]
+
+        kwargs.update({
+            'side_bars': side_bars,
+            'recently_posts': recently_posts,
+            'recently_comments': recently_comments,
+        })
+        kwargs.update(self.get_category_context())
+        return super(CommonMixin, self).get_context_data(**kwargs)
+
+
+class BasePostsView(CommonMixin, ListView):
+    model = Post
+    template_name = 'blog/list.html'
+    context_object_name = 'posts'
+    paginate_by = 3
+
+
+class IndexView(BasePostsView):
+    pass
+
+
+class CategoryView(BasePostsView):
+    def get_queryset(self):
+        qs = super(BasePostsView, self).get_queryset()
+        category_id = self.kwargs.get('category_id')
+        posts = qs.filter(category_id=category_id)
+        return posts
+
+
+class TagView(BasePostsView):
+    def get_queryset(self):
+        tag_id = self.kwargs.get('tag_id')
         try:
             tag = Tag.objects.get(id=tag_id)
         except Tag.DoesNotExist:
-            queryset = None
-            Http404('tag does not exist')
+            return []
         else:
-            queryset = tag.post_set.all()
-
-    #分页
-    paginator = Paginator(queryset, page_size)
-    try:
-        posts = paginator.page(page)
-    except EmptyPage:
-        posts = paginator.page(paginator.num_pages)
+            posts = tag.post_set.all()
+        return posts
 
 
+class PostView(DetailView):
+    model = Post
+    template_name = 'blog/detail.html'
+    context_object_name = 'post'
 
-    context = {
-        'posts':posts,
-    }
-    common_context = get_common_context()
-    context.update(common_context)
-    return render(request, 'blog/list.html', context=context)
 
-def post_detail(request, post_id=None):
-    try:
-        post = Post.objects.get(id=post_id)
-    except Post.DoesNotExist:
-        raise Http404('post does not exist')
 
-    context = {
-        'post':post
-    }
-
-    return render(request, 'blog/detail.html', context=context)
 
