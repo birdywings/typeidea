@@ -7,13 +7,13 @@ from django.db import models
 from blog.models import Post
 
 
-class Comment(models.Model) :
+class Comment(models.Model):
     STATUS_ITEMS = (
         (1, '正常'),
         (2, '刪除'),
     )
 
-    post = models.ForeignKey(Post, verbose_name='文章')
+    target = models.CharField(max_length=200, null=True, verbose_name='评论目标')
     content = models.CharField(max_length=200, verbose_name='內容')
     nickname = models.CharField(max_length=200, verbose_name='昵称')
     website = models.URLField(verbose_name='网站')

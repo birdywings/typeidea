@@ -6,7 +6,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class Link(models.Model) :
+class Link(models.Model):
     STATUS_ITEMS = (
         (1, '正常'),
         (2, '刪除'),
@@ -14,7 +14,7 @@ class Link(models.Model) :
     title = models.CharField(max_length=50, verbose_name='标题')
     href = models.URLField(verbose_name='链接')
     status = models.IntegerField(choices=STATUS_ITEMS, verbose_name='状态')
-    weight = models.IntegerField(default=1, choices=zip(range(1,6),range(1,6)),
+    weight = models.IntegerField(default=1, choices=zip(range(1, 6), range(1, 6)),
                                  verbose_name='权重',
                                  help_text='权重越高展示順序越靠前')
     owner = models.ForeignKey(User, verbose_name='作者')
@@ -30,10 +30,10 @@ class SideBar(models.Model) :
         (2, '线下'),
     )
     SIDE_TYPE = (
-        (1,'HTML'),
-        (2,'最新文章'),
-        (3,'最热文章'),
-        (4,'最近評論'),
+        (1, 'HTML'),
+        (2, '最新文章'),
+        (3, '最热文章'),
+        (4, '最近評論'),
     )
     title = models.CharField(max_length=50, verbose_name='标题')
     display_type = models.PositiveIntegerField(default=1, choices=SIDE_TYPE,

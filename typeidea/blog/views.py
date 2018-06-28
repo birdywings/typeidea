@@ -1,15 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render
-from django.http import Http404
-from django.core.paginator import Paginator, EmptyPage
 from django.views.generic import ListView, DetailView
 
 from .models import Post, Tag, Category
 from config.models import SideBar
 from comment.models import Comment
-
+from comment.views import CommentShowMixin
 
 
 class CommonMixin(object):
@@ -51,12 +48,21 @@ class BasePostsView(CommonMixin, ListView):
 
 
 class IndexView(BasePostsView):
-    pass
+    def get_queryset(self):
+        query = self.request.GET.get('query')
+        qs = super(IndexView, self).get_queryset()
+        if query:
+            return qs.filter(title__icontains=query)
+        return qs
+
+    def get_context_data(self, **kwargs):
+        query = self.request.GET.get('query')
+        return super(IndexView, self).get_context_data(query=query)
 
 
 class CategoryView(BasePostsView):
     def get_queryset(self):
-        qs = super(BasePostsView, self).get_queryset()
+        qs = super(CategoryView, self).get_queryset()
         category_id = self.kwargs.get('category_id')
         posts = qs.filter(category_id=category_id)
         return posts
@@ -69,15 +75,24 @@ class TagView(BasePostsView):
             tag = Tag.objects.get(id=tag_id)
         except Tag.DoesNotExist:
             return []
-        else:
-            posts = tag.post_set.all()
+        posts = tag.post_set.all()
         return posts
 
 
-class PostView(DetailView):
+class AuthorView(BasePostsView):
+    def get_queryset(self):
+        author_id = self.kwargs.get('author_id')
+        qs = super(AuthorView, self).get_queryset()
+        if author_id:
+            qs = qs.filter(owner_id=author_id)
+        return qs
+
+
+class PostView(CommonMixin, CommentShowMixin, DetailView):
     model = Post
     template_name = 'blog/detail.html'
     context_object_name = 'post'
+
 
 
 
