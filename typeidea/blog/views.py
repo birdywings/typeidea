@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.core.cache import cache
 from django.views.generic import ListView, DetailView
 
 from .models import Post, Tag, Category
@@ -30,11 +31,13 @@ class CommonMixin(object):
 
         recently_posts = Post.objects.filter(status=1)[:10]
         recently_comments = Comment.objects.filter(status=1)[:10]
+        hot_posts = Post.objects.filter(status=1).order_by('-pv')[:10]
 
         kwargs.update({
             'side_bars': side_bars,
             'recently_posts': recently_posts,
             'recently_comments': recently_comments,
+            'hot_posts': hot_posts,
         })
         kwargs.update(self.get_category_context())
         return super(CommonMixin, self).get_context_data(**kwargs)
@@ -92,6 +95,32 @@ class PostView(CommonMixin, CommentShowMixin, DetailView):
     model = Post
     template_name = 'blog/detail.html'
     context_object_name = 'post'
+
+    def get(self, request, *args, **kwargs):
+        response = super(PostView, self).get(request, *args, **kwargs)
+        self.pv_uv()
+        return response
+
+    def pv_uv(self):
+        # 增加pv
+        # 判断用户，增加uv
+
+        session_id = self.request.COOKIES.get('sessionid')
+        if not session_id:
+            return
+
+        pv_key = 'pv:%s:%s' % (session_id, self.request.path)
+        print(cache.get(pv_key))
+        if not cache.get(pv_key):
+            self.object.increase_pv()
+            cache.set(pv_key, 1, 30)
+
+        uv_key = 'uv:%s:%s' % (session_id, self.request.path)
+        print(cache.get(uv_key))
+        if not cache.get(uv_key):
+            self.object.increase_uv()
+            cache.set(uv_key, 1, 60 * 60 * 24)
+
 
 
 

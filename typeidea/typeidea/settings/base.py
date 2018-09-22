@@ -69,15 +69,15 @@ WSGI_APPLICATION = 'typeidea.wsgi.application'
 #     }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'typeidea',
-        'HOST': '127.0.0.1',
-        'USER': 'root',
-        'PASSWORD': 'wtf3512887',
-        }
-    }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'typeidea',
+#         'HOST': '127.0.0.1',
+#         'USER': 'root',
+#         'PASSWORD': 'wtf3512887',
+#         }
+#     }
 
 
 # Password validation

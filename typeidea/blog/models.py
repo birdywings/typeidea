@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 import markdown
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import F
 
 
 class Post(models.Model):
@@ -23,8 +24,17 @@ class Post(models.Model):
     owner = models.ForeignKey(User, verbose_name='作者')
     created_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
 
+    pv = models.PositiveIntegerField(default=1)
+    uv = models.PositiveIntegerField(default=1)
+
     def __str__(self):
         return self.title
+
+    def increase_pv(self):
+        return type(self).objects.filter(id=self.id).update(pv=F('pv') + 1)
+
+    def increase_uv(self):
+        return type(self).objects.filter(id=self.id).update(uv=F('uv') + 1)
 
     def save(self, *args, **kwargs):
         if self.is_markdown:
