@@ -36,6 +36,15 @@ INSTALLED_APPS = [
     'config',
     'typeidea',
 
+    'xadmin',
+    'crispy_forms',
+    'reversion',
+
+    'dal',
+    'dal_select2',
+
+    'ckeditor',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -143,3 +152,13 @@ TEMPLATES = [
         },
     },
 ]
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': 800,
+    },
+}
+CKEDITOR_RESTRICT_BY_USER = True
+CKEDITOR_UPLOAD_PATH = 'content/ckeditor/'

@@ -110,13 +110,11 @@ class PostView(CommonMixin, CommentShowMixin, DetailView):
             return
 
         pv_key = 'pv:%s:%s' % (session_id, self.request.path)
-        print(cache.get(pv_key))
         if not cache.get(pv_key):
             self.object.increase_pv()
             cache.set(pv_key, 1, 30)
 
         uv_key = 'uv:%s:%s' % (session_id, self.request.path)
-        print(cache.get(uv_key))
         if not cache.get(uv_key):
             self.object.increase_uv()
             cache.set(uv_key, 1, 60 * 60 * 24)

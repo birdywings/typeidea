@@ -2,14 +2,19 @@
 from __future__ import unicode_literals
 
 from django.conf.urls import url
-from django.contrib import admin
-
-from .custom_site import custom_site
 from blog.views import (
     IndexView, CategoryView, TagView, PostView, AuthorView
 )
 from config.views import LinkView
 from comment.views import CommentView
+from .autocomplete import CategoryAutocomplete, TagAutocomplete
+
+import xadmin
+xadmin.autodiscover()
+
+from xadmin.plugins import xversion
+xversion.register_models()
+
 
 urlpatterns = [
     url(r'^$', IndexView.as_view(), name='index'),
@@ -19,7 +24,8 @@ urlpatterns = [
     url(r'^author/(?P<author_id>\d+)/$', AuthorView.as_view(), name='author'),
     url(r'^links/$', LinkView.as_view(), name='links'),
     url(r'^comment/$', CommentView.as_view(), name='comment'),
+    url(r'^category-autocomplete/$', CategoryAutocomplete.as_view(), name='category-autocomplete'),
+    url(r'^tag-autocomplete/$', TagAutocomplete.as_view(), name='tag-autocomplete'),
 
-    url(r'^admin/', admin.site.urls),
-    url(r'^custom_admin/', custom_site.urls),
+    url(r'^admin/', xadmin.site.urls),
 ]

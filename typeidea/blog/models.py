@@ -45,7 +45,8 @@ class Post(models.Model):
                 }
             }
             self.html = markdown.markdown(self.content, extensions=["codehilite"], extension_configs=config)
-
+        else:
+            self.html = self.html
         return super(Post, self).save(*args, **kwargs)
 
     class Meta:
@@ -68,6 +69,7 @@ class Category(models.Model):
         return self.name
 
     class Meta:
+        ordering = ['-id']
         verbose_name = verbose_name_plural = '分类'
 
 
@@ -85,4 +87,5 @@ class Tag(models.Model):
         return self.name
 
     class Meta:
+        ordering = ['-id']
         verbose_name = verbose_name_plural = '标签'
