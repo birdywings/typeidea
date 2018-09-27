@@ -45,6 +45,8 @@ INSTALLED_APPS = [
 
     'ckeditor',
 
+    'rest_framework',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -162,3 +164,8 @@ CKEDITOR_CONFIGS = {
 }
 CKEDITOR_RESTRICT_BY_USER = True
 CKEDITOR_UPLOAD_PATH = 'content/ckeditor/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 1
+}

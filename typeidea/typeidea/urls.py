@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.conf.urls import url
+from django.conf.urls import url, include
 from blog.views import (
     IndexView, CategoryView, TagView, PostView, AuthorView
 )
@@ -14,6 +14,14 @@ xadmin.autodiscover()
 
 from xadmin.plugins import xversion
 xversion.register_models()
+
+from rest_framework import routers
+from rest_framework.documentation import include_docs_urls
+
+from blog.api import PostsViewSet, PostsView
+
+router = routers.DefaultRouter()
+router.register(r'post_view_set', PostsViewSet)
 
 
 urlpatterns = [
@@ -28,4 +36,8 @@ urlpatterns = [
     url(r'^tag-autocomplete/$', TagAutocomplete.as_view(), name='tag-autocomplete'),
 
     url(r'^admin/', xadmin.site.urls),
+
+    url(r'^api/docs/', include_docs_urls(title='typeidea apis')),
+    url(r'^api/', include(router.urls)),
+    url(r'^post_view/', PostsView.as_view())
 ]
