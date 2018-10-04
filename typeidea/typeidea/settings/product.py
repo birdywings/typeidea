@@ -15,7 +15,7 @@ DEBUG = True
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379/4',
+        'LOCATION': 'redis://192.168.1.103/4',
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
@@ -32,7 +32,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'typeidea',
-        'HOST': '127.0.0.1',
+        'HOST': '192.168.1.103',
         'USER': 'root',
         'PASSWORD': 'wtf3512887',
         'CONN_MAX_AGE': 60,  # mysql允许连接60秒，可复用
