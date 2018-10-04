@@ -1,9 +1,11 @@
 from .base import *
 
-DEBUG = True
+DEBUG = False
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+
+SECRET_KEY = '4%y($e=ks6t8f)pk#fmobogt=l1wbn*fh=#a$p^973u&%-_bk1'
 
 # CACHES = {
 #     'default': {
