@@ -20,6 +20,9 @@ from rest_framework.documentation import include_docs_urls
 
 from blog.api import PostsViewSet, PostsView
 
+from django.conf.urls.static import static
+from django.conf import settings
+
 router = routers.DefaultRouter()
 router.register(r'post_view_set', PostsViewSet)
 
@@ -43,4 +46,4 @@ urlpatterns = [
     url(r'^api/docs/', include_docs_urls(title='typeidea apis')),
     url(r'^api/', include(router.urls)),
     url(r'^post_view/', PostsView.as_view())
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
