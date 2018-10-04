@@ -58,5 +58,3 @@ REST_FRAMEWORK = {
 # silk
 INSTALLED_APPS += ['silk']
 MIDDLEWARE += ['silk.middleware.SilkyMiddleware']
-
-STATIC_ROOT = BASE_DIR
