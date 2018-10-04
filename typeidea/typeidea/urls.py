@@ -37,6 +37,9 @@ urlpatterns = [
 
     url(r'^admin/', xadmin.site.urls),
 
+    url(r'^silk/', include('silk.urls', namespace='silk')),
+
+
     url(r'^api/docs/', include_docs_urls(title='typeidea apis')),
     url(r'^api/', include(router.urls)),
     url(r'^post_view/', PostsView.as_view())
