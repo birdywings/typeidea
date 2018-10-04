@@ -20,11 +20,19 @@ from rest_framework.documentation import include_docs_urls
 
 from blog.api import PostsViewSet, PostsView
 
-from django.conf.urls.static import static
+import re
+from django.views.static import serve
+
 from django.conf import settings
 
 router = routers.DefaultRouter()
 router.register(r'post_view_set', PostsViewSet)
+
+
+def static(prefix, **kwargs):
+    return [
+        url(r'^%s(?P<path>.*)$' % re.escape(prefix.lstrip('/')), serve, kwargs=kwargs),
+    ]
 
 
 urlpatterns = [
