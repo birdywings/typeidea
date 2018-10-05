@@ -113,8 +113,10 @@ THEME = 'themes/default'
 
 STATIC_URL = '/static/'
 
+# 运行collect的时候收集静态文件到这个目录
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
+# collect时只会收集每个app下的static文件,这个用来制定额外的存放静态文件的目录
 STATICFILES_DIRS = [
      os.path.join(BASE_DIR, THEME, "static"),
  ]
