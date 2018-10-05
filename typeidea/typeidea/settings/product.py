@@ -13,7 +13,7 @@ from .base import *
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://192.168.1.103/4',
+        'LOCATION': 'redis://192.168.1.100/4',
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
@@ -30,7 +30,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'typeidea',
-        'HOST': '192.168.1.103',
+        'HOST': '192.168.1.100',
         'USER': 'root',
         'PASSWORD': 'wtf3512887',
         'CONN_MAX_AGE': 60,  # mysql允许连接60秒，可复用
