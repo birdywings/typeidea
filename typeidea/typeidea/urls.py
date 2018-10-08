@@ -17,12 +17,15 @@ xversion.register_models()
 
 from rest_framework import routers
 from rest_framework.documentation import include_docs_urls
+from ckeditor_uploader import urls as uploader_urls
 
 from blog.api import PostsViewSet, PostsView
 
 import re
 from django.views.static import serve
 from django.conf.urls.static import static
+
+from django.conf.urls import include
 
 from django.conf import settings
 
@@ -54,5 +57,9 @@ urlpatterns = [
 
     url(r'^api/docs/', include_docs_urls(title='typeidea apis')),
     url(r'^api/', include(router.urls)),
-    url(r'^post_view/', PostsView.as_view())
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    url(r'^post_view/', PostsView.as_view()),
+
+    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + \
+              static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
