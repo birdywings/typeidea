@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'dal_select2',
 
     'ckeditor',
+    'ckeditor_uploader',
 
     'rest_framework',
 
