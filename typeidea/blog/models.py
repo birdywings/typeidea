@@ -37,17 +37,13 @@ class Post(models.Model):
         return type(self).objects.filter(id=self.id).update(uv=F('uv') + 1)
 
     def save(self, *args, **kwargs):
-        if self.is_markdown:
-            config = {
-                'codehilite': {
-                    'use_pygments': False,
-                    'css_class': 'prettyprint linenums',
-                }
+        config = {
+            'codehilite': {
+                'use_pygments': False,
+                'css_class': 'prettyprint linenums',
             }
-            self.html = markdown.markdown(self.content, extensions=["codehilite"], extension_configs=config)
-        else:
-            self.html = markdown.markdown(self.content, extensions=["codehilite"], extension_configs=config)
-        return super(Post, self).save(*args, **kwargs)
+        }
+        self.html = markdown.markdown(self.content, extensions=["codehilite"], extension_configs=config)
 
     class Meta:
         verbose_name = verbose_name_plural = '文章'
