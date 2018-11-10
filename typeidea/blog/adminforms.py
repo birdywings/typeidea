@@ -12,7 +12,8 @@ from .models import Category, Tag
 class PostAdminForm(forms.ModelForm):
     desc = forms.CharField(widget=forms.Textarea, label='摘要', required=False)
     # content = forms.CharField(widget=CKEditorWidget(), label="内容")
-    content = forms.CharField(widget=CKEditorUploadingWidget(), label="内容")
+    # content = forms.CharField(widget=CKEditorUploadingWidget(), label="内容")
+    content = forms.CharField(widget=forms.HiddenInput(), required=False)
     # category = forms.ModelChoiceField(
     #     queryset=Category.objects.all(),
     #     widget=autocomplete.ModelSelect2(url='category-autocomplete'),
