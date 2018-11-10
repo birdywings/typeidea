@@ -36,22 +36,18 @@ class Post(models.Model):
     def increase_uv(self):
         return type(self).objects.filter(id=self.id).update(uv=F('uv') + 1)
 
-    def save(self, *args, **kwargs):
-        try:
-            config = {
-                'codehilite': {
-                    'use_pygments': False,
-                    'css_class': 'prettyprint linenums',
-                }
-            }
-            self.html = markdown.markdown(self.content, extensions=["codehilite"], extension_configs=config)
-            print('aaaaaaaaaaaaaaa')
-            print('aaaaaaaaaaaaaaa')
-            print('aaaaaaaaaaaaaaa')
-            print('aaaaaaaaaaaaaaa')
-
-        except Exception as e:
-            print(e)
+    # def save(self, *args, **kwargs):
+    #     if self.is_markdown:
+    #         config = {
+    #             'codehilite': {
+    #                 'use_pygments': False,
+    #                 'css_class': 'prettyprint linenums',
+    #             }
+    #         }
+    #         self.html = markdown.markdown(self.content, extensions=["codehilite"], extension_configs=config)
+    #     else:
+    #         self.html = self.html
+    #     return super(Post, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = verbose_name_plural = '文章'
