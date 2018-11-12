@@ -44,7 +44,8 @@ class Post(models.Model):
                     'css_class': 'prettyprint linenums',
                 }
             }
-            self.html = markdown.markdown(self.content, extensions=["codehilite"], extension_configs=config)
+            self.html = markdown.markdown(self.content, extensions=['codehilite', 'extra', 'toc'],
+                                          extension_configs=config)
         else:
             self.html = self.content
         return super(Post, self).save(*args, **kwargs)

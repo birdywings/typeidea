@@ -38,9 +38,7 @@
         </nav>
     </div>
     <article class="content">
-        {% autoescape off %}
-        {{ post.html }}
-        {% endautoescape %}
+        {{ post.html|safe }}
     </article>
 
     {% include 'comment/block.html' %}
