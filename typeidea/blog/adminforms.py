@@ -13,8 +13,8 @@ from .models import Category, Tag
 class PostAdminForm(forms.ModelForm):
     desc = forms.CharField(widget=forms.Textarea, label='摘要', required=False)
 
-    content = forms.CharField(widget=CKEditorWidget(), label="内容")
-    # content = forms.CharField(widget=MDEditorWidget(), label="内容")
+    # content = forms.CharField(widget=CKEditorWidget(), label="内容")
+    content = forms.CharField(widget=MDEditorWidget(), label="内容")
 
     # content = forms.CharField(label="内容")
     # category = forms.ModelChoiceField(
