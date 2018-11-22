@@ -90,3 +90,9 @@ class Tag(models.Model):
     class Meta:
         ordering = ['-id']
         verbose_name = verbose_name_plural = '标签'
+
+
+class Test(models.Model):
+    name = models.CharField(max_length=50, verbose_name='name')
+    flag = models.IntegerField(default=0, verbose_name='flag')
+

@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.conf.urls import url, include
+from django.conf.urls import url
+from django.urls import path, include
 from blog.views import (
     IndexView, CategoryView, TagView, PostView, AuthorView
 )
@@ -25,7 +26,6 @@ import re
 from django.views.static import serve
 from django.conf.urls.static import static
 
-from django.conf.urls import include
 
 from django.conf import settings
 
@@ -61,6 +61,11 @@ urlpatterns = [
 
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'mdeditor/', include('mdeditor.urls')),
+
+    # ------------------------------------------------------------------------------------------------------------------
+
+    # 博客url
+    url('blog/', include('blog.app.v1.urls')),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + \
               static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

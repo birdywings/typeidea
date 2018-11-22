@@ -52,7 +52,7 @@ CKEDITOR_UPLOAD_PATH = 'content/ckeditor/'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 1
+    'PAGE_SIZE': 10
 }
 
 # silk
