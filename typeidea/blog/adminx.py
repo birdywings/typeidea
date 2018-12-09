@@ -5,7 +5,7 @@ import xadmin
 from xadmin.layout import Fieldset, Row
 from django.urls import reverse
 from django.utils.html import format_html
-from .models import Post, Category, Tag
+from .models import Post, Category, Tag, Test
 from .adminforms import PostAdminForm
 from typeidea.adminx import BaseOwnerAdmin
 
@@ -65,3 +65,10 @@ class TagAdmin(BaseOwnerAdmin):
 
 
 xadmin.site.register(Tag, TagAdmin)
+
+
+class TestAdmin(BaseOwnerAdmin):
+    list_display = ('name', 'flag')
+
+
+xadmin.site.register(Test, TestAdmin)

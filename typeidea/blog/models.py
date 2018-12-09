@@ -95,4 +95,6 @@ class Tag(models.Model):
 class Test(models.Model):
     name = models.CharField(max_length=50, verbose_name='name')
     flag = models.IntegerField(default=0, verbose_name='flag')
+    image = models.ImageField(upload_to='image',  default='')
+    file = models.FileField(upload_to='file',  default='')
 

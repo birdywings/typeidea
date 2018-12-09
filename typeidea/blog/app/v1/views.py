@@ -33,6 +33,13 @@ class TestListView(ListAPIView):
     def list(self, request, *args, **kwargs):
         sql = 'SELECT * FROM blog_test'
         rows = self.get_all_by_sql(sql)
+        print('==================================================')
+        print(kwargs)
+        print(self.request.parser_context)  # url参数 <int:....>
+        print(self.request.GET)   # 参数信息
+        print(self.request.META)  # 头部信息
+        print(self.request.user)
+        print('==================================================')
         return self.response({'code': 0, 'data': rows})
 
 
