@@ -97,4 +97,5 @@ class Test(models.Model):
     flag = models.IntegerField(default=0, verbose_name='flag')
     image = models.ImageField(upload_to='image',  default='')
     file = models.FileField(upload_to='file',  default='')
+    num = models.CharField(max_length=50, verbose_name='num')
 
