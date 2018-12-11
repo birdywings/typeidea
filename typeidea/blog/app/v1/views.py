@@ -40,7 +40,12 @@ class TestListView(ListAPIView):
         print(self.request.META)  # 头部信息
         print(self.request.user)
         print('==================================================')
-        return self.response({'code': 0, 'data': rows})
+
+        result_list = []
+        result_list.append({'id': 1, 'image': 'http://47.107.69.2:8001/media/a.jpeg'})
+        result_list.append({'id': 2, 'image': 'http://47.107.69.2:8001/media/a.jpeg'})
+        result_list.append({'id': 3, 'image': 'http://47.107.69.2:8001/media/a.jpeg'})
+        return self.response({'code': 0, 'data': result_list})
 
 
 class TestCreateView(CreateAPIView):
@@ -68,6 +73,7 @@ class TestDestroyView(DestroyAPIView):
 class TestUpdateView(UpdateAPIView):
     queryset = Test.objects.all()
     serializer_class = TestSerializer
+
 
 
 
