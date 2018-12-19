@@ -67,5 +67,7 @@ urlpatterns = [
     # 博客url
     url('blog/', include('blog.app.v1.urls')),
 
+    # 租车小程序url
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + \
               static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

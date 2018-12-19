@@ -17,10 +17,16 @@ class BaseView(generics.GenericAPIView):
         """
         使用原生SQL获取数据
         :param sql:
+        :param page_size:
         :return:
         """
+        if self.request.GET.get('page_size') is not None:
+            page_size = self.request.GET.get('page_size', None)
+
         page = 1
-        page_size = page_size
+        if self.request.GET.get('page') is not None:
+            page = self.request.GET.get('page', None)
+
         if 'page' in self.request.GET:
             try:
                 page = int(self.request.GET.get('page'))
