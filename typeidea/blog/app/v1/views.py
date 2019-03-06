@@ -79,13 +79,8 @@ class TestPostView(ListCreateAPIView):
     def post(self, request, *args, **kwargs):
         print(request.data['id'])  # POST的数据
 
-        print('test error')
-        a = {'a': 1, 'b': 2}
-        print(a['a'])
-        print(a['c'])
-
         from django.http import JsonResponse
-        return JsonResponse({'code': 0, 'data': '111'})
+        return JsonResponse({'code': 0, 'data': '111', 're_data': request.data})
 
         # return self.response({'code': 0, 'data': '111'})
 
