@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from base.apps import ListAPIView, CreateAPIView, RetrieveAPIView, DestroyAPIView, UpdateAPIView
+from base.apps import ListAPIView, CreateAPIView, RetrieveAPIView, DestroyAPIView, UpdateAPIView, ListCreateAPIView
 from blog.models import Post, Test
 from .serializers import PostsSerializer, TestSerializer
 
@@ -73,6 +73,16 @@ class TestDestroyView(DestroyAPIView):
 class TestUpdateView(UpdateAPIView):
     queryset = Test.objects.all()
     serializer_class = TestSerializer
+
+
+class TestPostView(ListCreateAPIView):
+    def post(self, request, *args, **kwargs):
+        print(request.data['id'])  # POST的数据
+
+        from django.http import JsonResponse
+        return JsonResponse({'code': 0, 'data': '111'})
+
+        # return self.response({'code': 0, 'data': '111'})
 
 
 

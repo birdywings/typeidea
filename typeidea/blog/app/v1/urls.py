@@ -13,4 +13,5 @@ urlpatterns = [
     path('test_retrieve/<int:pk>/', views.TestRetrieveView.as_view()),
     path('test_destroy/<int:pk>/', views.TestDestroyView.as_view()),
     path('test_update/<int:pk>/', views.TestUpdateView.as_view()),
+    path('test_post/', views.TestPostView.as_view()),
 ]
