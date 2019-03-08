@@ -90,7 +90,7 @@ class TestPostView(ListCreateAPIView):
 # contact_post_view
 class ContactPostView(ListCreateAPIView):
     def post(self, request, *args, **kwargs):
-        if value_judge('name', 'phone', 'email', 'position') is not True:
+        if value_judge(request, 'name', 'phone', 'email', 'position') is not True:
             return self.response({'code': API_1_CONTACT_FAIL, 'data': request.data})
         else:
             contact = Contact()
