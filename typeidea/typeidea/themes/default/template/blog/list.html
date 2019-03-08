@@ -28,8 +28,8 @@
                     <p>{{ post.desc }}</p>
 				</div>
 			</div>
-
         {% endfor %}
+
         {% if page_obj.has_previous %}
             {% if query %}
                 <a href="?page={{ page_obj.previous_page_number }}&{{ query }}">上一页</a>

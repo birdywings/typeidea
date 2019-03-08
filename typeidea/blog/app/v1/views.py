@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 from base.apps import ListAPIView, CreateAPIView, RetrieveAPIView, DestroyAPIView, UpdateAPIView, ListCreateAPIView
-from blog.models import Post, Test
+from blog.models import Post, Test, Contact
 from .serializers import PostsSerializer, TestSerializer
+from base.funtion import value_judge
+from  base.code import API_1_CONTACT_FAIL
 
 
 # class PostsViewSet(viewsets.ModelViewSet):
@@ -85,5 +87,22 @@ class TestPostView(ListCreateAPIView):
         # return self.response({'code': 0, 'data': '111'})
 
 
+# contact_post_view
+class ContactPostView(ListCreateAPIView):
+    def post(self, request, *args, **kwargs):
+        if value_judge('name', 'phone', 'email', 'position') is not True:
+            return self.response({'code': API_1_CONTACT_FAIL, 'data': request.data})
+        else:
+            contact = Contact()
+            contact.name = request.data['name']
+            contact.phone = request.data['phone']
+            contact.email = request.data['email']
+            contact.position = request.data['position']
+            contact.company = request.data['company']
+            contact.address = request.data['address']
+            contact.save()
 
+            return self.response({'code': 0, 'data': request.data})
 
+        # from django.http import JsonResponse
+        # return JsonResponse({'code': 0, 'data': '111', 're_data': request.data})
