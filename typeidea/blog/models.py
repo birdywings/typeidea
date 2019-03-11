@@ -6,6 +6,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import F
 
+import datetime
+
 
 class Post(models.Model):
     STATUS_ITEMS = (
@@ -107,7 +109,7 @@ class Contact(models.Model):
     position = models.CharField(max_length=64, verbose_name='工作岗位',  default='')
     company = models.CharField(max_length=64, verbose_name='企业名称',  default='')
     address = models.CharField(max_length=64, verbose_name='企业地址',  default='')
-    created_at = models.DateTimeField(verbose_name="创建时间", auto_now_add=True)
+    created_at = models.DateTimeField(verbose_name="创建时间", auto_now_add=True, default=datetime.datetime.now())
 
     class Meta:
         ordering = ['-id']
