@@ -112,9 +112,9 @@ class ProductView(ListAPIView):
     def list(self, request, *args, **kwargs):
         results = super(ProductView, self).list(request, *args, **kwargs)
         items = results.data.get('results')
-        data = list()
+        data = dict()
         for item in items:
-            data.append({
+            data.update({
                 item['id']: {'id': item['id'],
                              'cover_url': item['cover_url'],
                              'posts_url': item['posts_url'], }
