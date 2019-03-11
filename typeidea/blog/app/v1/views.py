@@ -116,6 +116,7 @@ class ProductView(ListAPIView):
         for item in items:
             data.update({
                 item['id']: {'id': item['id'],
+                             'name': item['name'],
                              'cover_url': item['cover_url'],
                              'posts_url': item['posts_url'], }
 
