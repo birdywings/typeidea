@@ -107,3 +107,19 @@ class Contact(models.Model):
     position = models.CharField(max_length=64, verbose_name='工作岗位',  default='')
     company = models.CharField(max_length=64, verbose_name='企业名称',  default='')
     address = models.CharField(max_length=64, verbose_name='企业地址',  default='')
+
+    class Meta:
+        ordering = ['-id']
+        verbose_name = verbose_name_plural = '联系人'
+
+
+class Product(models.Model):
+    name = models.CharField(max_length=64, verbose_name='产品名', default='')
+    prefix = models.CharField(max_length=64, verbose_name='图片url前缀', default='')
+    # 图片名用于拼接url前缀访问图片，posts有多张图片的情况下用 , 号分割
+    cover = models.CharField(max_length=255, verbose_name='主图图片名', default='')
+    posts = models.CharField(max_length=255, verbose_name='详情图片名', default='')
+
+    class Meta:
+        ordering = ['id']
+        verbose_name = verbose_name_plural = '产品'

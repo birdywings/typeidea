@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from base.apps import ListAPIView, CreateAPIView, RetrieveAPIView, DestroyAPIView, UpdateAPIView, ListCreateAPIView
-from blog.models import Post, Test, Contact
-from .serializers import PostsSerializer, TestSerializer
+from blog.models import Post, Test, Contact, Product
+from .serializers import PostsSerializer, TestSerializer, ProductSerializer
 from base.funtion import value_judge
-from  base.code import API_1_CONTACT_FAIL
+from base.code import API_1_CONTACT_FAIL
 
 
 # class PostsViewSet(viewsets.ModelViewSet):
@@ -38,7 +38,7 @@ class TestListView(ListAPIView):
         print('==================================================')
         print(kwargs)
         print(self.request.parser_context)  # url参数 <int:....>
-        print(self.request.GET)   # 参数信息
+        print(self.request.GET)  # 参数信息
         print(self.request.META)  # 头部信息
         print(self.request.user)
         print('==================================================')
@@ -87,10 +87,10 @@ class TestPostView(ListCreateAPIView):
         # return self.response({'code': 0, 'data': '111'})
 
 
-# contact_post_view
+# ande
 class ContactPostView(ListCreateAPIView):
     def post(self, request, *args, **kwargs):
-        if value_judge(request, 'name', 'phone', 'email', 'position') is not True:
+        if value_judge(request, 'name', 'phone', 'email', 'position', 'address') is not True:
             return self.response({'code': API_1_CONTACT_FAIL, 'data': request.data})
         else:
             contact = Contact()
@@ -104,5 +104,20 @@ class ContactPostView(ListCreateAPIView):
 
             return self.response({'code': 0, 'data': request.data})
 
-        # from django.http import JsonResponse
-        # return JsonResponse({'code': 0, 'data': '111', 're_data': request.data})
+
+class ProductView(ListAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+    def list(self, request, *args, **kwargs):
+        results = super(ProductView, self).list(request, *args, **kwargs)
+        items = results.data.get('results')
+        data = list()
+        for item in items:
+            data.append({
+                item['id']: {'id': item['id'],
+                             'cover_url': item['cover_url'],
+                             'posts_url': item['posts_url'], }
+
+            })
+        return self.response({'code': 0, 'data': data})
