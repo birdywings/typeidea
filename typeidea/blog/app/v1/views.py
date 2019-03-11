@@ -102,6 +102,9 @@ class ContactPostView(ListCreateAPIView):
             contact.address = request.data['address']
             contact.save()
 
+            import datetime
+            print(datetime.datetime.now())
+
             return self.response({'code': 0, 'data': request.data})
 
 
