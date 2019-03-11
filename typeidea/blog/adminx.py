@@ -5,7 +5,7 @@ import xadmin
 from xadmin.layout import Fieldset, Row
 from django.urls import reverse
 from django.utils.html import format_html
-from .models import Post, Category, Tag, Test
+from .models import Post, Category, Tag, Test, Contact
 from .adminforms import PostAdminForm
 from typeidea.adminx import BaseOwnerAdmin
 
@@ -72,3 +72,11 @@ class TestAdmin(BaseOwnerAdmin):
 
 
 xadmin.site.register(Test, TestAdmin)
+
+
+class ContactAdmin(BaseOwnerAdmin):
+    list_display = ('name', 'phone', 'email', 'position', 'company', 'address', 'created_at')
+
+
+xadmin.site.register(Contact, ContactAdmin)
+
