@@ -100,19 +100,18 @@ class Test(models.Model):
     num = models.CharField(max_length=50, verbose_name='num',  default='')
 
 
-class Contact(models.Model):
-    name = models.CharField(max_length=64, verbose_name='姓名',  default='')
-    phone = models.CharField(max_length=64, verbose_name='电话',  default='')
-    email = models.EmailField(max_length=64, verbose_name='邮箱', default='')
-    position = models.CharField(max_length=64, verbose_name='工作岗位',  default='')
-    company = models.CharField(max_length=64, verbose_name='企业名称',  default='')
-    address = models.CharField(max_length=64, verbose_name='企业地址',  default='')
-    created_at = models.DateTimeField(verbose_name="创建时间", auto_now_add=True)
-    a = models.CharField(max_length=64, verbose_name='企业地址', default='')
-
-    class Meta:
-        ordering = ['-id']
-        verbose_name = verbose_name_plural = '联系人'
+# class Contact(models.Model):
+#     name = models.CharField(max_length=64, verbose_name='姓名',  default='')
+#     phone = models.CharField(max_length=64, verbose_name='电话',  default='')
+#     email = models.EmailField(max_length=64, verbose_name='邮箱', default='')
+#     position = models.CharField(max_length=64, verbose_name='工作岗位',  default='')
+#     company = models.CharField(max_length=64, verbose_name='企业名称',  default='')
+#     address = models.CharField(max_length=64, verbose_name='企业地址',  default='')
+#     created_at = models.DateTimeField(verbose_name="创建时间", auto_now_add=True)
+#
+#     class Meta:
+#         ordering = ['-id']
+#         verbose_name = verbose_name_plural = '联系人'
 
 
 class Product(models.Model):
