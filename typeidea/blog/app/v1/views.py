@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from base.apps import ListAPIView, CreateAPIView, RetrieveAPIView, DestroyAPIView, UpdateAPIView, ListCreateAPIView
-from blog.models import Post, Test, Product
+from blog.models import Post, Test, Contact, Product
 from .serializers import PostsSerializer, TestSerializer, ProductSerializer
 from base.funtion import value_judge
 from base.code import API_1_CONTACT_FAIL
@@ -93,14 +93,14 @@ class ContactPostView(ListCreateAPIView):
         if value_judge(request, 'name', 'phone', 'email', 'position', 'address') is not True:
             return self.response({'code': API_1_CONTACT_FAIL, 'data': request.data})
         else:
-            # contact = Contact()
-            # contact.name = request.data['name']
-            # contact.phone = request.data['phone']
-            # contact.email = request.data['email']
-            # contact.position = request.data['position']
-            # contact.company = request.data['company']
-            # contact.address = request.data['address']
-            # contact.save()
+            contact = Contact()
+            contact.name = request.data['name']
+            contact.phone = request.data['phone']
+            contact.email = request.data['email']
+            contact.position = request.data['position']
+            contact.company = request.data['company']
+            contact.address = request.data['address']
+            contact.save()
 
             return self.response({'code': 0, 'data': request.data})
 
