@@ -26,20 +26,25 @@ class ProductSerializer(serializers.ModelSerializer):
     """
     cover_url = serializers.SerializerMethodField()  # 主图url
     posts_url = serializers.SerializerMethodField()  # 详情图url列表
+    video_url = serializers.SerializerMethodField()  # 视频url
 
     class Meta:
         model = Product
         fields = (
-            'id', 'name', 'cover_url', 'posts_url'
+            'id', 'name', 'cover_url', 'posts_url', 'video_url'
         )
 
     @staticmethod
     def get_cover_url(obj):
-        return obj.prefix + obj.cover
+        return obj.cover_prefix + obj.cover
 
     @staticmethod
     def get_posts_url(obj):
         posts_url = list()
         for post in obj.posts.split(','):
-            posts_url.append(obj.prefix + post)
+            posts_url.append(obj.posts_prefix + post)
         return posts_url
+
+    @staticmethod
+    def get_video_url(obj):
+        return obj.video_prefix + obj.video
