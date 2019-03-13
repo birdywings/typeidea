@@ -116,10 +116,15 @@ class Contact(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=64, verbose_name='产品名', default='')
-    prefix = models.CharField(max_length=64, verbose_name='图片url前缀', default='')
-    # 图片路径用于拼接url前缀访问图片，posts有多张图片的情况下用 , 号分割
+    cover_prefix = models.CharField(max_length=64, verbose_name='主图前缀', default='')
     cover = models.CharField(max_length=255, verbose_name='主图路径', default='')
+
+    # 图片路径用于拼接url前缀访问图片，posts有多张图片的情况下用 , 号分割
+    posts_prefix = models.CharField(max_length=64, verbose_name='详情图前缀', default='')
     posts = models.CharField(max_length=1280, verbose_name='详情路径', default='')
+
+    video_prefix = models.CharField(max_length=64, verbose_name='视频前缀', default='')
+    video = models.CharField(max_length=255, verbose_name='视频路径', default='')
 
     class Meta:
         ordering = ['id']

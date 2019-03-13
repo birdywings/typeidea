@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from blog.models import Post, Test
+from blog.models import Post, Test, Product
 
 
 class PostsSerializer(serializers.ModelSerializer):
@@ -28,7 +28,7 @@ class ProductSerializer(serializers.ModelSerializer):
     posts_url = serializers.SerializerMethodField()  # 详情图url列表
 
     class Meta:
-        model = Test
+        model = Product
         fields = (
             'id', 'name', 'cover_url', 'posts_url'
         )
