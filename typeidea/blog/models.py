@@ -141,6 +141,7 @@ class Company(models.Model):
     website = models.CharField(max_length=64, verbose_name='企业官网', default='')
     introduction = models.CharField(max_length=1280, verbose_name='公司简介', default='')
     desc = models.CharField(max_length=500, verbose_name='公司简介摘要', default='')
+    video_url = models.CharField(max_length=255, verbose_name='视频url', default='')
 
     class Meta:
         ordering = ['id']
