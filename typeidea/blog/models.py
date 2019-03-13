@@ -121,10 +121,10 @@ class Product(models.Model):
 
     # 图片路径用于拼接url前缀访问图片，posts有多张图片的情况下用 , 号分割
     posts_prefix = models.CharField(max_length=64, verbose_name='详情图前缀', default='')
-    posts = models.CharField(max_length=1280, verbose_name='详情路径', default='')
+    posts = models.TextField(verbose_name='详情路径', default='')
 
-    video_prefix = models.CharField(max_length=64, verbose_name='视频前缀', default='')
-    video = models.CharField(max_length=255, verbose_name='视频路径', default='')
+    video_prefix = models.CharField(max_length=64, verbose_name='视频前缀', default='', blank=True)
+    video = models.TextField(verbose_name='视频路径', default='', blank=True)
 
     class Meta:
         ordering = ['id']
@@ -139,8 +139,8 @@ class Company(models.Model):
     email = models.CharField(max_length=64, verbose_name='企业邮箱', default='')
     qq = models.CharField(max_length=64, verbose_name='企业QQ', default='')
     website = models.CharField(max_length=64, verbose_name='企业官网', default='')
-    introduction = models.CharField(max_length=1280, verbose_name='公司简介', default='')
-    desc = models.CharField(max_length=500, verbose_name='公司简介摘要', default='')
+    introduction = models.TextField( verbose_name='公司简介', default='')
+    desc = models.TextField(verbose_name='公司简介摘要', default='')
     video_url = models.CharField(max_length=255, verbose_name='视频url', default='')
 
     class Meta:
