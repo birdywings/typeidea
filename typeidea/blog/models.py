@@ -129,3 +129,19 @@ class Product(models.Model):
     class Meta:
         ordering = ['id']
         verbose_name = verbose_name_plural = '产品'
+
+
+class Company(models.Model):
+    name = models.CharField(max_length=64, verbose_name='公司名称', default='')
+    contact = models.CharField(max_length=64, verbose_name='联系人', default='')
+    phone = models.CharField(max_length=64, verbose_name='联系电话', default='')
+    address = models.CharField(max_length=64, verbose_name='公司地址', default='')
+    email = models.CharField(max_length=64, verbose_name='企业邮箱', default='')
+    qq = models.CharField(max_length=64, verbose_name='企业QQ', default='')
+    website = models.CharField(max_length=64, verbose_name='企业官网', default='')
+    introduction = models.CharField(max_length=1280, verbose_name='公司简介', default='')
+    desc = models.CharField(max_length=500, verbose_name='公司简介摘要', default='')
+
+    class Meta:
+        ordering = ['id']
+        verbose_name = verbose_name_plural = '企业信息'

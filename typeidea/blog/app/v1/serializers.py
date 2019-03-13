@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from blog.models import Post, Test, Product
+from blog.models import Post, Test, Product, Company
 
 
 class PostsSerializer(serializers.ModelSerializer):
@@ -48,3 +48,15 @@ class ProductSerializer(serializers.ModelSerializer):
     @staticmethod
     def get_video_url(obj):
         return obj.video_prefix + obj.video
+
+
+class CompanySerializer(serializers.ModelSerializer):
+    """
+    公司信息
+    """
+
+    class Meta:
+        model = Company
+        fields = (
+            'id', 'name', 'contact', 'phone', 'address', 'email', 'qq', 'website', 'introduction', 'desc'
+        )

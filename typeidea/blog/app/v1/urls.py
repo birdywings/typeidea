@@ -18,4 +18,5 @@ urlpatterns = [
     # ande
     path('contact_post/', views.ContactPostView.as_view()),
     path('product/', views.ProductView.as_view()),
+    path('company/', views.CompanyView.as_view()),
 ]

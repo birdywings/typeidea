@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from base.apps import ListAPIView, CreateAPIView, RetrieveAPIView, DestroyAPIView, UpdateAPIView, ListCreateAPIView
-from blog.models import Post, Test, Contact, Product
-from .serializers import PostsSerializer, TestSerializer, ProductSerializer
+from blog.models import Post, Test, Contact, Product, Company
+from .serializers import PostsSerializer, TestSerializer, ProductSerializer, CompanySerializer
 from base.funtion import value_judge
 from base.code import API_1_CONTACT_FAIL
 
@@ -121,7 +121,19 @@ class ProductView(ListAPIView):
                 item['id']: {'id': item['id'],
                              'name': item['name'],
                              'cover_url': item['cover_url'],
-                             'posts_url': item['posts_url'], }
+                             'posts_url': item['posts_url'],
+                             'video_url': item['video_url'], }
 
             })
         return self.response({'code': 0, 'data': data})
+
+
+class CompanyView(ListAPIView):
+    queryset = Company.objects.all()
+    serializer_class = CompanySerializer
+
+    def list(self, request, *args, **kwargs):
+        results = super(CompanyView, self).list(request, *args, **kwargs)
+        items = results.data.get('results')
+        return self.response({'code': 0, 'data': items[0]})
+
