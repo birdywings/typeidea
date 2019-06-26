@@ -13,7 +13,7 @@ from typeidea.utils import cache_it
 
 
 class CommonMixin(object):
-    @cache_it
+    # @cache_it
     def get_category_context(self):
         categories = Category.objects.filter(status=1)
         nav_cates = []
