@@ -32,9 +32,9 @@ class CommonMixin(object):
     def get_context_data(self, **kwargs):
         side_bars = SideBar.objects.filter(status=1)
 
-        recently_posts = Post.objects.filter(status=1)[:10]
-        recently_comments = Comment.objects.filter(status=1)[:10]
-        hot_posts = Post.objects.filter(status=1).order_by('-pv')[:10]
+        recently_posts = Post.objects.filter(status=1)[:4]
+        recently_comments = Comment.objects.filter(status=1)[:4]
+        hot_posts = Post.objects.filter(status=1).order_by('-pv')[:4]
 
         kwargs.update({
             'side_bars': side_bars,
