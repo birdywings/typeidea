@@ -23,8 +23,6 @@ class Post(models.Model):
     status = models.IntegerField(choices=STATUS_ITEMS, default=1, verbose_name='状态')
     owner = models.ForeignKey(User, verbose_name='作者', on_delete=models.DO_NOTHING)
     created_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
-    atime = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
-    btime = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
 
     pv = models.PositiveIntegerField(default=1)
     uv = models.PositiveIntegerField(default=1)
