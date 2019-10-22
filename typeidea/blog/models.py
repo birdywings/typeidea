@@ -24,8 +24,6 @@ class Post(models.Model):
     owner = models.ForeignKey(User, verbose_name='作者', on_delete=models.DO_NOTHING)
     created_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
 
-    atitle = models.CharField(max_length=50, verbose_name='a标题')
-
     pv = models.PositiveIntegerField(default=1)
     uv = models.PositiveIntegerField(default=1)
 
